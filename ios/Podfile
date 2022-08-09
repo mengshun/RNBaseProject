@@ -1,0 +1,26 @@
+require_relative '../rn/node_modules/react-native/scripts/react_native_pods'
+require_relative '../rn/node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform:ios, '11.0'
+
+def pods_RN
+  
+  use_react_native!(
+                    :path => "../rn/node_modules/react-native",
+                    :hermes_enabled => false
+                    )
+                    
+  use_flipper!()
+                    
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+  
+end
+
+target 'RNProject' do
+
+  pods_RN
+                    
+end
